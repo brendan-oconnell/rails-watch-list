@@ -1,0 +1,17 @@
+<h1>List Name: <%= @list.name %></h1>
+
+<h2>Current bookmarks on list:</h2>
+<div class="cards">
+  <% @bookmarks.each do |bookmark| %>
+    <div class="card-trip">
+      <% @current_movie = Movie.where(id: bookmark.movie_id).select(:title, :poster_url).take %>
+      <li class="list-group-item">Title:<%= @current_movie.title %>
+      <img src="<%= @current_movie.poster_url %>" alt="" height="300" width="200">
+      Comment:<%= bookmark.comment %> <%= link_to 'Delete bookmark', bookmark_path(bookmark), method: 'delete' %> </li>
+    </div>
+  <% end %>
+</div>
+<h2>Want to add a bookmark to your list?</h2>
+<%= link_to 'Add bookmark', new_list_bookmark_path(@list) %>
+
+<h2><%= link_to 'Return to list of lists', lists_path %></h2>

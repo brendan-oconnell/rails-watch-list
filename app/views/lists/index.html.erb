@@ -1,0 +1,14 @@
+<%= render "banner" %>
+<h1>My favorite movies</h1>
+  <div class="cards">
+    <% @lists.each do |list| %>
+      <div class="card-trip">
+        <img src="https://picsum.photos/300/200" />
+          <div class="card-trip-infos">
+              <%= link_to list.name, list_path(list) %>
+          </div>
+      </div>
+    <% end %>
+  </div>
+
+<h2><%= link_to "Create a new list", new_list_path %></h2>
