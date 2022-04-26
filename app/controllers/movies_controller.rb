@@ -1,1 +1,2 @@
 class MoviesController < ApplicationController
+end
