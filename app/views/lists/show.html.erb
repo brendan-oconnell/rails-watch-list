@@ -1,23 +1,29 @@
 <div class="index-container">
 <h1><%= @list.name %></h1>
+<% if @list.image_url %>
 <img src="<%= @list.image_url %>" alt="" height="200" width="300">
+<% end %>
 
 <% if @bookmarks.first %>
+  <br>
+  <h2>Current bookmarks on list:</h2>
   <div class="cards">
-    <h2>Current bookmarks on list:</h2>
     <% @bookmarks.each do |bookmark| %>
       <div class="card-trip">
         <% @current_movie = Movie.where(id: bookmark.movie_id).select(:title, :poster_url).take %>
-        <li class="list-group-item">Title:<%= @current_movie.title %>
+        <h3><%= @current_movie.title %></h3>
+        <li class="list-group-item">
         <img src="<%= @current_movie.poster_url %>" alt="" height="300" width="200">
-        Comment:<%= bookmark.comment %> <%= link_to 'Delete bookmark', bookmark_path(bookmark), method: 'delete' %> </li>
+        </li>
+         <strong>My Review:</strong><%= bookmark.comment %>
+         <li class="list-group-item"> <%= link_to 'Delete movie from list', bookmark_path(bookmark), method: 'delete' %></li>
       </div>
     <% end %>
   </div>
 <% else %>
-  <h2>Looks like you haven't added any favorite movies yet.</h2>
+  <h3>Looks like you haven't added any favorite movies to this list yet.</h3>
 <% end  %>
 
 <h2>Want to add a new movie to your list?</h2>
-<%= link_to 'Add movie', new_list_bookmark_path(@list) %>
+<h3><%= link_to 'Add movie', new_list_bookmark_path(@list) %></h3>
 </div>
