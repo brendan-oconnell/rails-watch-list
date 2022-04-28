@@ -4,4 +4,5 @@ Rails.application.routes.draw do
     resources :bookmarks, only: [:create, :new]
   end
   resources :bookmarks, only: :destroy
+  resources :movies, only: [:create, :new]
 end

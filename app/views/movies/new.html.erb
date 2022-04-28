@@ -1,0 +1,48 @@
+<h1>Create A New Movie</h1>
+
+  <div id="container">
+    <p>Start typing a movie title here, then copy/paste the title and URL to the boxes below.</p>
+    <input type="text" id="search">
+    <ul id="results">
+    </ul>
+  </div>
+
+<%= simple_form_for @movie do |f| %>
+  <%= f.input :title %>
+  <%= f.input :poster_url %>
+  <%= f.button :submit %>
+<% end %>
+
+
+
+<script>
+// TODO: Autocomplete the input with AJAX calls.
+
+const search = document.querySelector("#search");
+const list = document.querySelector("#results");
+// console.log(search);
+
+search.addEventListener("keyup", (event) => {
+  const text = event.currentTarget.value;
+  const wordLength = text.length;
+  // console.log(wordLength);
+  // console.log(text);
+  fetch(`https://api.themoviedb.org/3/search/movie?api_key=a93157fb52e8393666defa5fdffd0160&query=${text}`)
+    .then(response => response.json())
+    .then((data) => {
+      list.innerHTML = "";
+      const moviesArray = data.results;
+      moviesArray.forEach((result) => {
+        // console.log(result.original_title);
+        // console.log(result.poster_path);
+        // const slicedWord = result.original_title.slice(wordLength);
+        // const dictionaryResult = `<li> <strong>${text}</strong>${slicedWord} </li>`;
+        list.insertAdjacentHTML("beforeend", `<li><strong>Title:</strong> ${result.original_title} <strong>Image URL:</strong> https://image.tmdb.org/t/p/w500${result.poster_path} </li>`);
+      });
+      // wordsArray.forEach((result) => {
+
+      // });
+    });
+});
+
+</script>
